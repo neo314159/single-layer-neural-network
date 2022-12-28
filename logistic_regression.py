@@ -57,10 +57,6 @@ class Logistic_Regression:
         --------
         None
         """
-        # if isinstance(X, pd.core.frame.DataFrame):
-        #     X = X.values
-        # if isinstance(Y, (pd.core.frame.DataFrame, pd.core.series.Series)):
-        #     Y = Y.values
 
         X = X.T  # transpose values, X becomes (n,m) matrix
         Y = Y.T  # transpose values, Y becomes (1,m) matrix
@@ -97,20 +93,9 @@ class Logistic_Regression:
             w = w - self.lr * dw
             b = b - self.lr * db
 
-            # Print cost every 100 training iterations
+            # # Print cost every 100 training iterations
             if i % 100 == 0:
                 logger.info(f"Cost after iteration {i}: {cost}")
-            # check stopping criterion
-            grad_vec = np.concatenate([np.squeeze(dw), [db]])
-            delta = self.lr * grad_vec
-            if np.linalg.norm(delta) < self.tol:
-                logger.info(f"Final cost at convergence after iteration {i}: {cost}")
-                break
-            elif np.linalg.norm(delta) >= self.tol and i == self.iter - 1:
-                logger.info(f"Final cost before convergence after iteration {i}: {cost}")
-                logger.info("The max iteration was reached before convergence")
-            else:
-                pass
 
         self._w = w
         self._b = b
@@ -126,8 +111,6 @@ class Logistic_Regression:
         predictions: numpy.ndarray
             Predicted binary classes for each test examples
         """
-        # if isinstance(X, pd.core.frame.DataFrame):
-        #     X = X.values
 
         X = X.T  # transpose values, X becomes (n,m) matrix
 
