@@ -1,4 +1,4 @@
-# single-layer-neural-network
+# Single Layer Neural Network
  
 This is a simple implementation of a single layer neural network with logistic regression. In this simplified network, the single layer perceptron (for classification) is effectively a logistic regression.
 
