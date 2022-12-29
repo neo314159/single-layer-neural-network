@@ -10,9 +10,8 @@ class Logistic_Regression:
     A Logistic Regression model, as a single-layer perceptron.
     """
 
-    def __init__(self, iterations=10000, tolerance=0.00001, learning_rate=0.00001):
+    def __init__(self, iterations=10000, learning_rate=0.00001):
         self.iter = iterations
-        self.tol = tolerance
         self.lr = learning_rate
         self._w = 0
         self._b = 0
@@ -83,12 +82,18 @@ class Logistic_Regression:
             # where Z = w * X + B
             # The computation is dz = [ -Y/A + (1 - Y)/(1 - A) ] * [ A(1-A) ] = A - Y
             # In other words, we apply the chain rule to calculate the sensitivity of the cost function
-            # to small changes in the weights
+            # to "small changes" in Z.
             dz = A - Y
 
+            # Here we calculate the sensitivity of the cost function to "small changes" in the bias, which is
+            # effectively equal to dz
+            # ---> [derivative of Cost with respect to Z] * [derivative of Z with respect to bias] = (A - Y) * 1 = dz
             db = np.sum(dz) / m
 
+            # We apply the chain rule again to calculate the sensitivity of the cost function to "small changes" in
+            # the weights. Once we reach a local minimum, this sensitivity should be close to 0
             dw = np.dot(dz, X.T) / m
+            
             # Update parameters
             w = w - self.lr * dw
             b = b - self.lr * db
